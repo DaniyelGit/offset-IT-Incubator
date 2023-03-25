@@ -24,7 +24,8 @@ export const Button = (props: ButtonPropsType) => {
    const finalClassName = s.button
       + (disabled ? ' ' + s.disabled : '')
 
+
    return (
-      <button className={finalClassName} onClick={onClickHandler} {...restProps}/>
+      <button className={finalClassName} onClick={onClickHandler} disabled={disabled} {...restProps}/>
    );
 };
