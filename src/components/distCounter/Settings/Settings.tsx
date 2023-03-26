@@ -6,16 +6,14 @@ import {StateType} from "../../../App";
 
 type SettingPropsType = {
    state: StateType
-   changeStartValue: (value: number) => void
-   changeMaxValue: (value: number) => void
+   changeStartMaxValue: (key: string, value: number) => void
    setValue: (startValue: number) => void
 }
 
 export const Settings = (props: SettingPropsType) => {
    const {
       state,
-      changeStartValue,
-      changeMaxValue,
+      changeStartMaxValue,
       setValue,
    } = props;
 
@@ -30,8 +28,7 @@ export const Settings = (props: SettingPropsType) => {
          <SettingsField
             startValue={startValue}
             maxValue={maxValue}
-            changeStartValue={changeStartValue}
-            changeMaxValue={changeMaxValue}
+            changeStartMaxValue={changeStartMaxValue}
             checkError={checkError}
          />
 

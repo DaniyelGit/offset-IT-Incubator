@@ -17,18 +17,20 @@ export const Counter = (props: CounterPropsType) => {
       resetCurrentValue,
    } = props;
 
-   const {counterValue, startValue, maxValue} = state;
+   const {counterValue, startValue, maxValue, clueText} = state;
 
    const checkErrorInc = startValue >= maxValue
       || startValue < 0
       || maxValue < 1
-      || counterValue === maxValue;
+      || counterValue === maxValue || counterValue === -1;
 
-   const checkErrorReset = counterValue === startValue;
+   const checkErrorReset = counterValue === startValue || counterValue === -1;
 
    return (
       <div className={s.counter}>
          <Scoreboard
+            maxValue={maxValue}
+            clueText={clueText}
             counterValue={counterValue}
          />
          <div className={s.btnWrapper}>

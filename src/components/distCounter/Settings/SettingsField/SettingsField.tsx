@@ -6,8 +6,7 @@ type SettingsFieldPropsType = {
    startValue: number
    maxValue: number
    checkError: boolean
-   changeStartValue: (value: number) => void
-   changeMaxValue: (value: number) => void
+   changeStartMaxValue: (key: string, value: number) => void
 }
 
 export const SettingsField = (props: SettingsFieldPropsType) => {
@@ -15,8 +14,7 @@ export const SettingsField = (props: SettingsFieldPropsType) => {
       startValue,
       maxValue,
       checkError,
-      changeMaxValue,
-      changeStartValue,
+      changeStartMaxValue,
    } = props;
 
    return (
@@ -24,13 +22,17 @@ export const SettingsField = (props: SettingsFieldPropsType) => {
          <div>
             <span className={s.text}>max value:</span>
             <Input value={maxValue}
-                   onChangeValue={changeMaxValue}
+                   onChangeValue={(value: number) => {
+                      changeStartMaxValue('maxValue', value)
+                   }}
                    error={checkError}/>
          </div>
          <div>
             <span className={s.text}>start value:</span>
             <Input value={startValue}
-                   onChangeValue={changeStartValue}
+                   onChangeValue={(value: number) => {
+                      changeStartMaxValue('startValue', value)
+                   }}
                    error={checkError}/>
          </div>
       </div>
