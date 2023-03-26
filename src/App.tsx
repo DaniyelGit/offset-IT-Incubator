@@ -4,39 +4,49 @@ import {Counter} from "./components/distCounter/Counter/Counter";
 import {Settings} from "./components/distCounter/Settings/Settings";
 
 
+export type StateType = {
+   counterValue: number
+   startValue: number
+   maxValue: number
+}
+
 function App() {
-
    // ----- Counter -------
-   const [counterValue, setCounterValue] = React.useState<number>(0);
-   const [startValue, setStartValue] =React.useState<number>(0);
-   const [maxValue, setMaxValue] = React.useState<number>(0);
-   const [error, setError] = React.useState<boolean>(false);
-
-   const [stateCounter, setStateCounter] = React.useState({
+   const [state, setState] = React.useState<StateType>({
       counterValue: 0,
       startValue: 0,
       maxValue: 0,
    })
 
-   /*(startValue === maxValue
-      || startValue < 0
-      || maxValue < 0
-      || startValue > maxValue)*/
+   const changeStartValue = (value: number) => {
+      setState({...state, startValue: value});
+   };
+   const changeMaxValue = (value: number) => {
+      setState({...state, maxValue: value});
+   };
+   const incrCurrentValue = () => {
+      setState({
+         ...state, counterValue: state.counterValue + 1});
+   }
+   const resetCurrentValue = (value: number) => {
+      setState({...state, counterValue: value})
+   }
+   const setValue = (startValue: number) => {
+      setState({...state, counterValue: startValue});
+   };
 
    return (
       <div className="App-wrapper">
          <Settings
-            startValue={startValue}
-            maxValue={maxValue}
-            setStartValue={setStartValue}
-            setMaxValue={setMaxValue}
-            setCounterValue={setCounterValue}
+            state={state}
+            changeStartValue={changeStartValue}
+            changeMaxValue={changeMaxValue}
+            setValue={setValue}
          />
          <Counter
-            counterValue={counterValue}
-            setCounterValue={setCounterValue}
-            maxValue={maxValue}
-            startValue={startValue}
+            state={state}
+            incrCurrentValue={incrCurrentValue}
+            resetCurrentValue={resetCurrentValue}
          />
       </div>
    );

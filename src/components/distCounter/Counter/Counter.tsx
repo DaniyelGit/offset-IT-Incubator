@@ -2,42 +2,47 @@ import React from 'react';
 import s from './Counter.module.css';
 import {Scoreboard} from "./Scoreboard/Scoreboard";
 import {Button} from "../Button/Button";
+import {StateType} from "../../../App";
 
 type CounterPropsType = {
-   counterValue: number
-   maxValue: number
-   startValue: number
-   setCounterValue: (valueCounter: number) => void
+   state: StateType
+   incrCurrentValue: () => void
+   resetCurrentValue: (value: number) => void
 }
 
 export const Counter = (props: CounterPropsType) => {
    const {
-      counterValue,
-      setCounterValue,
-      maxValue,
-      startValue,
+      state,
+      incrCurrentValue,
+      resetCurrentValue,
    } = props;
+
+   const {counterValue, startValue, maxValue} = state;
+
+   const checkErrorInc = startValue >= maxValue
+      || startValue < 0
+      || maxValue < 1
+      || counterValue === maxValue;
+
+   const checkErrorReset = counterValue === startValue;
 
    return (
       <div className={s.counter}>
          <Scoreboard
             counterValue={counterValue}
-            maxValue={maxValue}
          />
          <div className={s.btnWrapper}>
             <Button
-               disabled={counterValue === maxValue}
-               onClickCallback={() => {
-                  counterValue < maxValue && setCounterValue(counterValue + 1)
-               }}
+               xType={checkErrorInc ? 'disabled' : 'default'}
+               disabled={checkErrorInc}
+               onClickCallback={incrCurrentValue}
             >
                inc
             </Button>
             <Button
-               disabled={counterValue === 0}
-               onClickCallback={() => {
-                  setCounterValue(startValue);
-               }}
+               xType={checkErrorReset ? 'disabled' : 'default'}
+               disabled={checkErrorReset}
+               onClickCallback={() => resetCurrentValue(startValue)}
             >
                reset
             </Button>

@@ -1,17 +1,18 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react';
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, ReactNode} from 'react';
 import s from './Input.module.css';
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 type InputPropsType = Omit<DefaultInputPropsType, 'type'> & {
    onChangeValue?: (value: number) => void
+   error?: ReactNode
 }
 
 export const Input = (props: InputPropsType) => {
    const {
-      className,
-      onChangeValue,
       onChange,
+      onChangeValue,
+      error,
       ...restProps
    } = props;
 
@@ -20,13 +21,16 @@ export const Input = (props: InputPropsType) => {
       onChangeValue?.(+e.currentTarget.value);
 
       onChange?.(e);
-   }
+   };
 
 
    const finalClassName = s.input
-      + (className ? ' ' + className : '');
+      + (error
+         ? ' ' + s.errorInput
+         : '');
 
    return (
-      <input type="number" className={finalClassName} onChange={onChangeHandler} {...restProps}/>
+      <input type="number"
+             className={finalClassName} onChange={onChangeHandler} {...restProps}/>
    );
 };

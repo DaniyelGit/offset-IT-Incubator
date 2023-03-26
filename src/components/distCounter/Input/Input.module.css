@@ -8,3 +8,8 @@
     padding: 5px;
     margin-left: auto;
 }
+
+.errorInput {
+    background-color: red;
+    opacity: .4;
+}

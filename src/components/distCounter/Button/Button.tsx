@@ -1,10 +1,11 @@
-import React, {ButtonHTMLAttributes, DetailedHTMLProps, MouseEvent} from 'react';
+import React, {ButtonHTMLAttributes, DetailedHTMLProps, MouseEvent, ReactNode} from 'react';
 import s from './Button.module.css';
 
 type DefaultButtonType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
 type ButtonPropsType = DefaultButtonType & {
    onClickCallback?: () => void
+   xType?: string
 }
 
 export const Button = (props: ButtonPropsType) => {
@@ -12,6 +13,7 @@ export const Button = (props: ButtonPropsType) => {
       onClickCallback,
       onClick,
       disabled,
+      xType,
       ...restProps
    } = props
 
@@ -22,7 +24,10 @@ export const Button = (props: ButtonPropsType) => {
    };
 
    const finalClassName = s.button
-      + (disabled ? ' ' + s.disabled : '')
+      + (disabled
+      ? ' ' + s.disabled
+         : xType === 'default'
+         ? ' ' + s.default: '');
 
 
    return (
