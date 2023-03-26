@@ -12,6 +12,12 @@ function App() {
    const [maxValue, setMaxValue] = React.useState<number>(0);
    const [error, setError] = React.useState<boolean>(false);
 
+   const [stateCounter, setStateCounter] = React.useState({
+      counterValue: 0,
+      startValue: 0,
+      maxValue: 0,
+   })
+
    /*(startValue === maxValue
       || startValue < 0
       || maxValue < 0
