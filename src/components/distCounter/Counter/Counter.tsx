@@ -29,6 +29,7 @@ export const Counter = (props: CounterPropsType) => {
    return (
       <div className={s.counter}>
          <Scoreboard
+            startValue={startValue}
             maxValue={maxValue}
             clueText={clueText}
             counterValue={counterValue}

@@ -4,11 +4,13 @@ import {Counter} from "./components/distCounter/Counter/Counter";
 import {Settings} from "./components/distCounter/Settings/Settings";
 
 
+
+
 export type StateType = {
    counterValue: number
    startValue: number
    maxValue: number
-   clueText: '' | 'enter values and press set'
+   clueText: '' | 'enter values and press set' | 'Incorrect value!'
 }
 
 function App() {
@@ -20,14 +22,13 @@ function App() {
       clueText: '',
    })
 
-
    const changeStartMaxValue = (key: string, value: number) => {
       setState(prevState => {
          return {
             ...prevState,
             [key]: value,
             counterValue: -1,
-            clueText: "enter values and press set",
+            clueText: 'enter values and press set',
          }
       })
    }

@@ -26,3 +26,10 @@
     color: rgb(6, 200, 248);
 }
 
+.errorText {
+    font-size: 25px;
+    color: red;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
