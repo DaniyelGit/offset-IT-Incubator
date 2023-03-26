@@ -7,6 +7,7 @@ type ScoreboardPropsType = {
    maxValue: number
    startValue: number
    clueText: string
+   errorText?: string
 }
 
 export const Scoreboard = (props: ScoreboardPropsType) => {
@@ -15,6 +16,7 @@ export const Scoreboard = (props: ScoreboardPropsType) => {
       maxValue,
       startValue,
       counterValue,
+      errorText,
    } = props;
 
 
@@ -24,7 +26,7 @@ export const Scoreboard = (props: ScoreboardPropsType) => {
    const resultJSX = startValue >= maxValue
    || startValue < 0
    || maxValue < 0
-      ? <span className={s.errorText}>Incorrect value!</span>
+      ? <span className={s.errorText}>{errorText}</span>
       : clueText === ''
          ? <span className={styleForMaksValue}>{counterValue}</span>
          : <span className={s.clueText}>{clueText}</span>

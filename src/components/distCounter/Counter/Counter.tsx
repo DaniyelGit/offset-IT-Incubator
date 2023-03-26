@@ -33,6 +33,7 @@ export const Counter = (props: CounterPropsType) => {
             maxValue={maxValue}
             clueText={clueText}
             counterValue={counterValue}
+            errorText={'Incorrect value!'}
          />
          <div className={s.btnWrapper}>
             <Button

@@ -10,7 +10,7 @@ export type StateType = {
    counterValue: number
    startValue: number
    maxValue: number
-   clueText: '' | 'enter values and press set' | 'Incorrect value!'
+   clueText: '' | 'enter values and press set'
 }
 
 function App() {
