@@ -6,7 +6,7 @@ type ScoreboardPropsType = {
    counterValue: number
    maxValue: number
    startValue: number
-   clueText: string
+   clueText: null | string
    errorText?: string
 }
 
@@ -19,21 +19,24 @@ export const Scoreboard = (props: ScoreboardPropsType) => {
       errorText,
    } = props;
 
+   const styleForMaksValue = `${s.counterValue} 
+   ${maxValue === counterValue ? s.maxValue : ''}`
 
-   const styleForMaksValue = s.counterValue
-      + (maxValue === counterValue ? ' ' + s.maxValue : '');
-
-   const resultJSX = startValue >= maxValue
-   || startValue < 0
-   || maxValue < 0
-      ? <span className={s.errorText}>{errorText}</span>
-      : clueText === ''
-         ? <span className={styleForMaksValue}>{counterValue}</span>
-         : <span className={s.clueText}>{clueText}</span>
+   const getJSX = ():JSX.Element => {
+      if (startValue >= maxValue
+         || startValue < 0
+         || maxValue < 0) {
+         return <span className={s.errorText}>{errorText}</span>;
+      }
+      if (clueText === null) {
+         return <span className={styleForMaksValue}>{counterValue}</span>;
+      }
+      return <span className={s.clueText}>{clueText}</span>
+   }
 
    return (
       <div className={s.scoreboard}>
-         {resultJSX}
+         {getJSX()}
       </div>
    );
 };

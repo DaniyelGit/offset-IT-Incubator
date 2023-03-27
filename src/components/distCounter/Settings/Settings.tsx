@@ -23,6 +23,10 @@ export const Settings = (props: SettingPropsType) => {
       || startValue < 0
       || maxValue < 1;
 
+   const setValueHandler = () => {
+      setValue(startValue);
+   }
+
    return (
       <div className={s.settings}>
          <SettingsField
@@ -34,11 +38,9 @@ export const Settings = (props: SettingPropsType) => {
 
          <div className={s.btnWrapper}>
             <Button
-               xType={checkError ? 'disabled' : 'default'}
+               variant={checkError ? 'disabled' : 'default'}
                disabled={checkError}
-               onClickCallback={() => {
-                  setValue(startValue);
-               }}
+               onClickCallback={setValueHandler}
             >
                set
             </Button>

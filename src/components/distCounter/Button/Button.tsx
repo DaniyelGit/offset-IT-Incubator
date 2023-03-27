@@ -1,19 +1,22 @@
-import React, {ButtonHTMLAttributes, DetailedHTMLProps, MouseEvent, ReactNode} from 'react';
+import React, {ButtonHTMLAttributes, MouseEvent, ReactNode} from 'react';
 import s from './Button.module.css';
 
-type DefaultButtonType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
-
-type ButtonPropsType = DefaultButtonType & {
-   onClickCallback?: () => void
-   xType?: string
+export enum variantButton {
+   DISABLED = 'disabled',
+   DEFAULT = 'default',
 }
 
-export const Button = (props: ButtonPropsType) => {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+   onClickCallback?: () => void
+   variant?: ReactNode
+}
+
+export const Button = (props: ButtonProps) => {
    const {
       onClickCallback,
       onClick,
       disabled,
-      xType,
+      variant = variantButton.DEFAULT,
       ...restProps
    } = props
 
@@ -23,14 +26,17 @@ export const Button = (props: ButtonPropsType) => {
       onClickCallback?.();
    };
 
-   const finalClassName = s.button
-      + (disabled
-      ? ' ' + s.disabled
-         : xType === 'default'
-         ? ' ' + s.default: '');
-
+   const finalClassName = `${s.button} ${disabled
+      ? s.disabled
+      : variant === variantButton.DEFAULT
+         ? s.default
+         : ''}`
 
    return (
-      <button className={finalClassName} onClick={onClickHandler} disabled={disabled} {...restProps}/>
+      <button className={finalClassName}
+              onClick={onClickHandler}
+              disabled={disabled}
+              {...restProps}
+      />
    );
 };

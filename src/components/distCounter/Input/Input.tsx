@@ -1,36 +1,42 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, ReactNode} from 'react';
+import React, {ChangeEvent, InputHTMLAttributes, ReactNode} from 'react';
 import s from './Input.module.css';
 
-type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-type InputPropsType = Omit<DefaultInputPropsType, 'type'> & {
-   onChangeValue?: (value: number) => void
-   error?: ReactNode
+export enum fieldNames {
+   DEFAULT = 'default',
+   START = 'startValue',
+   MAX = 'maxValue'
 }
 
-export const Input = (props: InputPropsType) => {
+interface NewInputPropsType extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+   onChangeValue?: (name: fieldNames, value: number) => void
+   error?: ReactNode
+   name?: fieldNames
+}
+
+export const Input = (props: NewInputPropsType) => {
    const {
       onChange,
       onChangeValue,
       error,
+      name = fieldNames.DEFAULT,
       ...restProps
    } = props;
 
-
    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-      onChangeValue?.(+e.currentTarget.value);
+      onChangeValue?.(name, +e.currentTarget.value);
 
       onChange?.(e);
    };
 
-
-   const finalClassName = s.input
-      + (error
-         ? ' ' + s.errorInput
-         : '');
+   const finalClassName = `${s.input} ${error ? s.errorInput : ''}`
 
    return (
       <input type="number"
-             className={finalClassName} onChange={onChangeHandler} {...restProps}/>
+             className={finalClassName}
+             onChange={onChangeHandler}
+             name={name}
+             {...restProps}
+      />
    );
 };

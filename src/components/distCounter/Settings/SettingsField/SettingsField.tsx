@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './SettingsField.module.css';
-import {Input} from "../../Input/Input";
+import {fieldNames, Input} from "../../Input/Input";
 
 type SettingsFieldPropsType = {
    startValue: number
@@ -17,22 +17,24 @@ export const SettingsField = (props: SettingsFieldPropsType) => {
       changeStartMaxValue,
    } = props;
 
+   const changeStartMaxHandler = (name: fieldNames, value: number) => {
+      changeStartMaxValue(name, value)
+   }
+
    return (
       <div className={s.settingsField}>
          <div>
             <span className={s.text}>max value:</span>
             <Input value={maxValue}
-                   onChangeValue={(value: number) => {
-                      changeStartMaxValue('maxValue', value)
-                   }}
+                   name={fieldNames.MAX}
+                   onChangeValue={changeStartMaxHandler}
                    error={checkError}/>
          </div>
          <div>
             <span className={s.text}>start value:</span>
             <Input value={startValue}
-                   onChangeValue={(value: number) => {
-                      changeStartMaxValue('startValue', value)
-                   }}
+                   name={fieldNames.START}
+                   onChangeValue={changeStartMaxHandler}
                    error={checkError}/>
          </div>
       </div>

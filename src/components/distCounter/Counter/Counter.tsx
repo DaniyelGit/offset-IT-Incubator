@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Counter.module.css';
 import {Scoreboard} from "./Scoreboard/Scoreboard";
-import {Button} from "../Button/Button";
+import {Button, variantButton} from "../Button/Button";
 import {StateType} from "../../../App";
 
 type CounterPropsType = {
@@ -33,18 +33,18 @@ export const Counter = (props: CounterPropsType) => {
             maxValue={maxValue}
             clueText={clueText}
             counterValue={counterValue}
-            errorText={'Incorrect value!'}
+            errorText='Incorrect value!'
          />
          <div className={s.btnWrapper}>
             <Button
-               xType={checkErrorInc ? 'disabled' : 'default'}
+               variant={checkErrorInc ? variantButton.DISABLED : variantButton.DEFAULT}
                disabled={checkErrorInc}
                onClickCallback={incrCurrentValue}
             >
                inc
             </Button>
             <Button
-               xType={checkErrorReset ? 'disabled' : 'default'}
+               variant={checkErrorReset ? variantButton.DISABLED : variantButton.DEFAULT}
                disabled={checkErrorReset}
                onClickCallback={() => resetCurrentValue(startValue)}
             >
