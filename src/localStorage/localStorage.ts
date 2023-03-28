@@ -1,11 +1,11 @@
 export const saveDataState = <T>(key: string, data: T) => {
-   localStorage.setItem('counterValues', JSON.stringify({
+   localStorage.setItem(key, JSON.stringify({
       ...data,
    }));
 };
 
 export const getDataState = <T>(key: string, defaultState: T) => {
-   const dataFromLS = localStorage.getItem('counterValues');
+   const dataFromLS = localStorage.getItem(key);
    if (dataFromLS) {
       const dataParse = JSON.parse(dataFromLS)
       return ({...defaultState,
