@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Counter} from "./components/distCounter/Counter/Counter";
 import {Settings} from "./components/distCounter/Settings/Settings";
+import {getDataState, saveDataState} from "./localStorage/localStorage";
 
 
 export type StateType = {
@@ -20,6 +21,18 @@ function App() {
       clueText: null,
    })
 
+   const {startValue, maxValue} = state;
+
+
+   useEffect(() => {
+      setState(getDataState('counterValues', state));
+   }, [])
+
+   useEffect(() => {
+      saveDataState('counterValues', {maxValue, startValue});
+   }, [maxValue, startValue]);
+
+
    const changeStartMaxValue = (key: string, value: number): void => {
       setState(prevState => {
          return {
@@ -37,16 +50,17 @@ function App() {
 
    const incrCurrentValue = () => {
       setState({
-         ...state, counterValue: state.counterValue + 1});
+         ...state, counterValue: state.counterValue + 1
+      });
    }
 
    const setValue = (startValue: number) => {
-      setState({...state,
+      setState({
+         ...state,
          counterValue: startValue,
          clueText: null,
       });
    };
-
 
    return (
       <div className="App-wrapper">
