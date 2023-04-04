@@ -1,0 +1,15 @@
+.input {
+    border: 4px solid rgb(6, 200, 248);
+    border-radius: 5px;
+    outline: none;
+    font-weight: 700;
+    text-align: center;
+    max-width: 150px;
+    padding: 5px;
+    margin-left: auto;
+}
+
+.errorInput {
+    background-color: red;
+    opacity: .4;
+}
