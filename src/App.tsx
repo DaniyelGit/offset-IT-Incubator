@@ -3,6 +3,9 @@ import './App.css';
 import {getDataState, saveDataState} from "./localStorage/localStorage";
 import {Settings} from "./components/Counter/Settings/Settings";
 import {Counter} from "./components/Counter/Counter/Counter";
+import {useSelector} from "react-redux";
+import {RootStateType} from "./redux/store";
+import {InitialStateType} from "./redux/reducers/counterReducer";
 
 
 export type StateType = {
@@ -19,10 +22,9 @@ function App() {
       startValue: 0,
       maxValue: 0,
       clueText: null,
-   })
+   });
 
    const {startValue, maxValue} = state;
-
 
    useEffect(() => {
       setState(getDataState('counterValues', state));
@@ -33,16 +35,6 @@ function App() {
    }, [maxValue, startValue]);
 
 
-   const changeStartMaxValue = (key: string, value: number): void => {
-      setState(prevState => {
-         return {
-            ...prevState,
-            [key]: value,
-            counterValue: -1,
-            clueText: 'enter values and press set',
-         }
-      })
-   }
 
    const resetCurrentValue = (value: number) => {
       setState({...state, counterValue: value})
@@ -65,8 +57,6 @@ function App() {
    return (
       <div className="App-wrapper">
          <Settings
-            state={state}
-            changeStartMaxValue={changeStartMaxValue}
             setValue={setValue}
          />
          <Counter

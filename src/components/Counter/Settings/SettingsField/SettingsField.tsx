@@ -17,9 +17,9 @@ export const SettingsField = (props: SettingsFieldPropsType) => {
       changeStartMaxValue,
    } = props;
 
-   const changeStartMaxHandler = (name: fieldNames, value: number) => {
+   /*const changeStartMaxHandler = (name: fieldNames, value: number) => {
       changeStartMaxValue(name, value)
-   }
+   }*/
 
    return (
       <div className={s.settingsField}>
@@ -27,14 +27,14 @@ export const SettingsField = (props: SettingsFieldPropsType) => {
             <span className={s.text}>max value:</span>
             <Input value={maxValue}
                    name={fieldNames.MAX}
-                   onChangeValue={changeStartMaxHandler}
+                   onChangeValue={changeStartMaxValue}
                    error={checkError}/>
          </div>
          <div>
             <span className={s.text}>start value:</span>
             <Input value={startValue}
                    name={fieldNames.START}
-                   onChangeValue={changeStartMaxHandler}
+                   onChangeValue={changeStartMaxValue}
                    error={checkError}/>
          </div>
       </div>

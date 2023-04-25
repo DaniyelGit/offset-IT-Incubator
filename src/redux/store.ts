@@ -7,7 +7,7 @@ const rootStore = combineReducers({
 
 export type RootStateType = ReturnType<typeof rootStore>;
 
-const store = legacy_createStore(rootStore);
+export const store = legacy_createStore(rootStore);
 
 // @ts-ignore
 window.store = store;

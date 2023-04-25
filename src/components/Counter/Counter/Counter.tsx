@@ -21,6 +21,7 @@ export const Counter = (props: CounterPropsType) => {
 
    const {counterValue, startValue, maxValue, clueText} = state;
 
+
    const checkErrorInc = startValue >= maxValue
       || startValue < 0
       || maxValue < 1

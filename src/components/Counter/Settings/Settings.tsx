@@ -2,24 +2,23 @@ import React from 'react';
 import s from './Settings.module.css';
 import {SettingsField} from "./SettingsField/SettingsField";
 import {Button} from "../Button/Button";
-import {StateType} from "../../../App";
+import {useDispatch, useSelector} from "react-redux";
+import {RootStateType} from "../../../redux/store";
+import {changeStartMaxValue, InitialStateType} from "../../../redux/reducers/counterReducer";
 
 
 
 type SettingPropsType = {
-   state: StateType
-   changeStartMaxValue: (key: string, value: number) => void
    setValue: (startValue: number) => void
 }
 
 export const Settings = (props: SettingPropsType) => {
    const {
-      state,
-      changeStartMaxValue,
       setValue,
    } = props;
 
-   const {startValue, maxValue} = state;
+   const {startValue, maxValue} = useSelector<RootStateType, InitialStateType>(state => state.counter);
+   const dispatch = useDispatch();
 
    const checkError = startValue >= maxValue
       || startValue < 0
@@ -29,12 +28,16 @@ export const Settings = (props: SettingPropsType) => {
       setValue(startValue);
    }
 
+   const changeStartMaxValueHandler = (key: string, value: number) => {
+      dispatch(changeStartMaxValue(key, value))
+   }
+
    return (
       <div className={s.settings}>
          <SettingsField
             startValue={startValue}
             maxValue={maxValue}
-            changeStartMaxValue={changeStartMaxValue}
+            changeStartMaxValue={changeStartMaxValueHandler}
             checkError={checkError}
          />
 
