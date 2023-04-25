@@ -22,6 +22,25 @@ export const counterReducer = (state: InitialStateType = initialState, action: A
             clueText: 'enter values and press set',
          };
       }
+      case 'SET_RANGE': {
+         return {
+            ...state,
+            ...action.payLoad,
+            clueText: null,
+         }
+      }
+      case 'INCR_CURRENT_VALUE': {
+         return {
+            ...state,
+            counterValue: state.counterValue + 1,
+         }
+      }
+      case 'RESET_COUNTER': {
+         return {
+            ...state,
+            counterValue: state.startValue,
+         }
+      }
       default: {
          return state;
       }
@@ -36,9 +55,35 @@ export const changeStartMaxValue = (nameInput: string, value: number) => {
          name: nameInput,
          value,
       }
-   } as const
+   } as const;
 };
+
+export const setRange = (startValue: number) => {
+   return {
+      type: 'SET_RANGE',
+      payLoad: {
+         counterValue: startValue
+      }
+   } as const;
+};
+
+export const incrCurrentValue = () => {
+   return {
+      type: 'INCR_CURRENT_VALUE',
+   } as const;
+};
+
+export const resetCounter = () => {
+   return {
+      type: 'RESET_COUNTER',
+   } as const;
+}
 
 
 type ChangeStartMaxValueType = ReturnType<typeof changeStartMaxValue>;
-export type ActionsType = ChangeStartMaxValueType;
+type SetRangeType = ReturnType<typeof setRange>;
+type IncrCurrentValueType = ReturnType<typeof incrCurrentValue>;
+type ResetCounterType = ReturnType<typeof resetCounter>;
+
+export type ActionsType = ChangeStartMaxValueType
+   | SetRangeType | IncrCurrentValueType | ResetCounterType;

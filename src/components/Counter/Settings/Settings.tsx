@@ -4,19 +4,15 @@ import {SettingsField} from "./SettingsField/SettingsField";
 import {Button} from "../Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../../redux/store";
-import {changeStartMaxValue, InitialStateType} from "../../../redux/reducers/counterReducer";
+import {changeStartMaxValue, InitialStateType, setRange} from "../../../redux/reducers/counterReducer";
 
 
 
 type SettingPropsType = {
-   setValue: (startValue: number) => void
+
 }
 
 export const Settings = (props: SettingPropsType) => {
-   const {
-      setValue,
-   } = props;
-
    const {startValue, maxValue} = useSelector<RootStateType, InitialStateType>(state => state.counter);
    const dispatch = useDispatch();
 
@@ -24,8 +20,8 @@ export const Settings = (props: SettingPropsType) => {
       || startValue < 0
       || maxValue < 1;
 
-   const setValueHandler = () => {
-      setValue(startValue);
+   const setRangeHandler = () => {
+      dispatch(setRange(startValue));
    }
 
    const changeStartMaxValueHandler = (key: string, value: number) => {
@@ -45,7 +41,7 @@ export const Settings = (props: SettingPropsType) => {
             <Button
                variant={checkError ? 'disabled' : 'default'}
                disabled={checkError}
-               onClickCallback={setValueHandler}
+               onClickCallback={setRangeHandler}
             >
                set
             </Button>

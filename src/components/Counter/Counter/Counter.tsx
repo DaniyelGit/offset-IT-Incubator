@@ -2,24 +2,33 @@ import React from 'react';
 import s from './Counter.module.css';
 import {Scoreboard} from "./Scoreboard/Scoreboard";
 import {Button, variantButton} from "../Button/Button";
-import {StateType} from "../../../App";
+import {useDispatch, useSelector} from "react-redux";
+import {RootStateType} from "../../../redux/store";
+import {incrCurrentValue, InitialStateType, resetCounter} from "../../../redux/reducers/counterReducer";
 
 
 
 type CounterPropsType = {
-   state: StateType
-   incrCurrentValue: () => void
-   resetCurrentValue: (value: number) => void
+
 }
 
 export const Counter = (props: CounterPropsType) => {
    const {
-      state,
-      incrCurrentValue,
-      resetCurrentValue,
-   } = props;
+      counterValue,
+      startValue,
+      maxValue,
+      clueText
+   } = useSelector<RootStateType, InitialStateType>(state => state.counter);
 
-   const {counterValue, startValue, maxValue, clueText} = state;
+   const dispatch = useDispatch();
+
+   const incrCurrentValueHandler = () => {
+      dispatch(incrCurrentValue());
+   };
+
+   const resetCounterValueHandler = () => {
+      dispatch(resetCounter());
+   }
 
 
    const checkErrorInc = startValue >= maxValue
@@ -42,14 +51,14 @@ export const Counter = (props: CounterPropsType) => {
             <Button
                variant={checkErrorInc ? variantButton.DISABLED : variantButton.DEFAULT}
                disabled={checkErrorInc}
-               onClickCallback={incrCurrentValue}
+               onClickCallback={incrCurrentValueHandler}
             >
                inc
             </Button>
             <Button
                variant={checkErrorReset ? variantButton.DISABLED : variantButton.DEFAULT}
                disabled={checkErrorReset}
-               onClickCallback={() => resetCurrentValue(startValue)}
+               onClickCallback={resetCounterValueHandler}
             >
                reset
             </Button>

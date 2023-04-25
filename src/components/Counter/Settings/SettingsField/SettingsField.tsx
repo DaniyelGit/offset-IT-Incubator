@@ -17,10 +17,6 @@ export const SettingsField = (props: SettingsFieldPropsType) => {
       changeStartMaxValue,
    } = props;
 
-   /*const changeStartMaxHandler = (name: fieldNames, value: number) => {
-      changeStartMaxValue(name, value)
-   }*/
-
    return (
       <div className={s.settingsField}>
          <div>
